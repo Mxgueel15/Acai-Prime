@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {Image,KeyboardAvoidingView,ScrollView,StyleSheet,Text,View,TouchableOpacity,Platform,TextInput,} from 'react-native';
+import { Header } from './componentes/header';
+import { Footer } from './componentes/Footer';
 
 export default function App() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleOrder = () => {
+  function handleOrder(name) {
     if (name.trim() === '') {
       setMessage('Por favor, digite seu nome para fazer o pedido!');
       return;
@@ -14,30 +16,16 @@ export default function App() {
     setMessage(`Obrigado, ${name}! Seu pedido foi realizado com sucesso.`);
   };
 
-  const handleAddToCart = (productName) => {
-    console.log(`Item "${productName}" adicionado ao carrinho!`);
-  };
 
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={30}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
           
-          <View style={styles.header}>
-            <View>
-              <Text style={styles.Title}>Açaí Prime</Text>
-              <Text style={styles.headerSub}>O sabor puro da Amazônia</Text>
-            </View>
-
-            <Image
-              source={require('./assets/mulher.jpg')}
-              style={styles.image}
-            />
-          </View>
+          <Header/>
 
           <View style={styles.content}>
             
@@ -73,7 +61,7 @@ export default function App() {
 
                   <TouchableOpacity
                     style={styles.cardAddButton}
-                    onPress={() => handleAddToCart('Açaí Turbinado 500ml')}
+                    onPress={() => handleOrder ('Açaí Turbinado 500ml')}
                     activeOpacity={0.8}
                   >
                     <Text style={styles.cardAddText}>Adicionar</Text>
@@ -101,7 +89,7 @@ export default function App() {
                   <Text style={styles.priceProduct}>R$ 14,00</Text>
                   <TouchableOpacity
                     style={styles.addButton}
-                    onPress={() => handleAddToCart('Açaí Tradicional')}
+                    onPress={() => handleOrder('Açaí Tradicional')}
                     activeOpacity={0.8}
                   >
                     <Text style={styles.addButtonText}>+</Text>
@@ -124,7 +112,7 @@ export default function App() {
                   <Text style={styles.priceProduct}>R$ 18,50</Text>
                   <TouchableOpacity
                     style={styles.addButton}
-                    onPress={() => handleAddToCart('Copo Tropical')}
+                    onPress={() => handleOrder('Copo Tropical')}
                     activeOpacity={0.8}
                   >
                     <Text style={styles.addButtonText}>+</Text>
@@ -147,7 +135,7 @@ export default function App() {
                   <Text style={styles.priceProduct}>R$ 12,00</Text>
                   <TouchableOpacity
                     style={styles.addButton}
-                    onPress={() => handleAddToCart('Vitamina de Açaí')}
+                    onPress={() => handleOrder('Vitamina de Açaí')}
                     activeOpacity={0.8}
                   >
                     <Text style={styles.addButtonText}>+</Text>
@@ -170,7 +158,7 @@ export default function App() {
                   <Text style={styles.priceProduct}>R$ 16,90</Text>
                   <TouchableOpacity
                     style={styles.addButton}
-                    onPress={() => handleAddToCart('Açaí Fit Zero')}
+                    onPress={() => handleOrder('Açaí Fit Zero')}
                     activeOpacity={0.8}
                   >
                     <Text style={styles.addButtonText}>+</Text>
@@ -203,7 +191,7 @@ export default function App() {
               )}
             </View>
 
-            <Text style = {styles.footer}>Açai Prime • O sabor autêntico da Amazônia</Text>
+            <Footer/>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -217,30 +205,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  header: {
-    width: '100%',
-    paddingHorizontal: 24,
-    paddingTop: 60,
-    paddingBottom: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  Title: {
-    fontSize: 22,
-    color: '#2C1B30',
-    fontWeight: '800',
-  },
-  headerSub: {
-    fontSize: 14,
-    color: '#644D6A',
-    marginTop: 4,
-  },
-  image: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
   },
   content: {
     paddingHorizontal: 24,
@@ -434,10 +398,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     textAlign: 'center',
     marginTop: 20,
-  },
-  footer : {
-    color: "#6C757D",
-    textAlign: 'center',
-    marginTop: 2
   }
 });
